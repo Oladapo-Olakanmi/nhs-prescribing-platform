@@ -1,4 +1,5 @@
 # nhs-prescribing-platform
+[![CI](https://github.com/Oladapo-Olakanmi/nhs-prescribing-platform/actions/workflows/ci.yml/badge.svg)](https://github.com/Oladapo-Olakanmi/nhs-prescribing-platform/actions/workflows/ci.yml)
 
 A UK Housing Data Platform — built in stages, each one a tagged release. A portfolio project for transitioning from DBA to Data Platform Engineer.
 
