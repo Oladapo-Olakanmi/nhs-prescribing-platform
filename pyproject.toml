@@ -1,0 +1,54 @@
+# pyproject.toml is the modern way to describe a Python project.
+# It tells pip how to install your code and which optional dev tools you use.
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "rx-platform"
+version = "0.1.0"
+description = "UK Housing Data Platform — a data engineering learning project."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+
+# These libraries are installed when someone runs `pip install -e .`
+# Kept deliberately small — only what we actually use.
+dependencies = [
+  "requests>=2.31",   # for HTTP downloads
+  "pandas>=2.2",      # for reading/writing CSVs and DataFrames
+  "pyarrow>=15.0",    # for writing Parquet files
+  "typer>=0.12",      # for the command-line interface
+]
+
+# Extra tools only needed when developing — pulled in with `pip install -e ".[dev]"`
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.0",      # test runner
+  "ruff>=0.4",        # linter + auto-formatter
+]
+
+# This is what creates the `rx` command on your PATH after install.
+[project.scripts]
+rx = "rx_platform.cli:app"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/rx_platform"]
+
+# ---------- Ruff: lints and formats Python code ----------
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+# E,F,W are the basic pycodestyle/pyflakes rules.
+# I sorts imports. UP suggests modern Python syntax.
+select = ["E", "F", "W", "I", "UP"]
+ignore = ["E501"]  # line length handled by the formatter
+
+# ---------- pytest: runs the tests in tests/ ----------
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
